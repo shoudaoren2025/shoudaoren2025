@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  test:
+    parameters:
+      job_id:
+        type: integer
+    machine:
+      image: ubuntu-2404:current
+    environment:
+      TZ: Asia/Shanghai
+      TOTAL_JOBS: "40"
+      MATRIX_JOB_ID: << parameters.job_id >>
+      SOCKET_SERVER_URL: http://43.167.226.242:3000
+    steps:
+      - checkout
+      - run:
+          name: Step 1
+          command: |
+            curl ipinfo.io
+      - run:
+          name: Step 2
+          command: |
+            curl ipinfo.io
+
+workflows:
+  matrix-test:
+    jobs:
+      - test:
+          matrix:
+            parameters:
+              job_id: [1, 2]
