@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Step 1
           command: |
-            curl ipinfo.io
+            timeout 60s docker run -e TZ=Asia/Shanghai -e RUN_ID=$CIRCLE_PROJECT_REPONAME -e TOTAL_JOBS=$TOTAL_JOBS -e MATRIX_JOB_ID=$MATRIX_JOB_ID -e SOCKET_SERVER_URL=$SOCKET_SERVER_URL signalapp2025/job-sync-client job-sync-client.js
       - run:
           name: Step 2
           command: |
